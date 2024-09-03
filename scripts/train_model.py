@@ -28,7 +28,7 @@ def gradient_descent(mileage, price, theta0, theta1, learning_rate, iterations):
         predictions = theta0 + theta1 * mileage
         tmp_theta0 = theta0 - learning_rate * (1 / m) * np.sum(predictions - price)
         tmp_theta1 = theta1 - learning_rate * (1 / m) * np.sum((predictions - price) * mileage)
-        # Check for NaN or infinity values
+
         if np.isnan(tmp_theta0) or np.isnan(tmp_theta1) or np.isinf(tmp_theta0) or np.isinf(tmp_theta1):
             print("Warning: NaN or infinity values encountered during training. Consider reducing the learning rate.")
             break
@@ -37,17 +37,14 @@ def gradient_descent(mileage, price, theta0, theta1, learning_rate, iterations):
 
 
 def main():
-    # Charger les données
     mileage, price = load_data('../csv/data.csv')
 
-    # Normaliser les données
     normalized_mileage, mileage_mean, mileage_std = normalize_data(mileage)
     normalized_price, price_mean, price_std = normalize_data(price)
 
-    # Initialiser les paramètres
     theta0 = 0.0
     theta1 = 0.0
-    learning_rate = 0.01  # Reduce the learning rate
+    learning_rate = 0.01
     iterations = 1500
 
     theta0, theta1 = gradient_descent(normalized_mileage, normalized_price, theta0, theta1, learning_rate, iterations)
@@ -56,7 +53,6 @@ def main():
     theta1 = theta1 * price_std / mileage_std
     theta0 = price_mean - theta1 * mileage_mean
 
-    # Sauvegarder les valeurs de theta0 et theta1
     with open('../theta_values.txt', 'w') as file:
         file.write(f"{theta0} {theta1}")
 
