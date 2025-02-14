@@ -2,3 +2,5 @@
 .idea
 undefined-pycharm-support-libs
 .ipynb_checkpoints
+weight
+__pycache__
